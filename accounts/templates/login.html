@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block "content" %}
+<div class="container">
+  <br>
+    <h2 class="text-center my-3" style="color: rgb(121, 130, 131);">Login to your account</h2>
+<!-- login form -->
+    <form method="POST">
+      {% csrf_token %}
+      <br>
+      <div class="form-group col">
+        <label for="exampleInputUserName">Username</label>
+        <input type="text" class="form-control" id="exampleInputUserName" name="username" placeholder="Username">
+      </div>
+    <!-- <div class="form-group col">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div> -->
+    <br>
+      <div class="form-group col">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+      </div>
+      <br>
+      <div class="text-center">
+        <button class="btn btn-primary mx-3 my-4 " type="submit" style="background-color: #fb85a1; border-color: #fb85a1;">Login</button>
+
+      </div>
+  </form>
+
+  <p class="link_signup">Don't have an account <a style="color: #fb85a1;" href="{% url 'signup' %}">Sign up</a></p>
+
+  
+
+</div>
+{% endblock "content" %}

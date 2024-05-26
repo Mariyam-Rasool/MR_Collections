@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block "content" %}
+<body class="show_cart">
+    <div class="cart_tab">
+        <h1>Shopping Cart</h1>
+        <div class="listcart">
+            <div class="item">
+            <div class="image">
+                <img src="abaya1.jpg" alt="abaya1" />
+            </div>
+            <div class="item_name">NAME</div>
+            <div class="totalprice">Rs/-5000</div>
+            <div class="quantity">
+                    <span class="minus"><</span>
+                    <span>1</span>
+                    <span class="plus">></span>
+            </div>
+            </div>
+      </div>
+
+      <div class="btn">
+            <button class="close">CLOSE</button>
+            <button class="checkout">CheckOut</button>
+      </div>
+    </div>
+</body>
+{% endblock "content" %}

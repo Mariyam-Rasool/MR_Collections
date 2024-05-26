@@ -1,0 +1,76 @@
+<li>
+    <a href=""><i class="fa-solid fa-heart"></i></a>
+</li>
+<li>
+    <a href=""><i class="fa-solid fa-user"></i></a>
+</li>
+<li>
+    <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+</li>
+<strike></strike>
+
+
+
+
+
+<!--
+{% load static %}
+{% block "content" %}
+<div class="product_container">
+  {% for product in page_obj %}
+  
+  {% comment %} if condition for sale {% endcomment %}
+  {% if product.on_sale %}
+  <div class="card">
+    <img src="{{product.image.url}}" class="card-img-Topper" alt="abaya">
+    <div class="card-body">
+      <h5 class="card-title">{{product.product_name}}</h5>
+      <strike><p class="card-text">Rs. {{product.price}}</p></strike>
+      <p class="card-text">Rs. {{product.sale_price}}</p>
+
+    </div>
+
+    <div class="sale_icon">
+      <div class="sale">Sale</div>
+    </div>
+
+    <div class="p_card_icon">
+
+      <div class="p_cart_icon p_icon">
+        <i class="fa-solid fa-cart-shopping icon_wl_c"></i>
+      </div>
+      <div class="p_wl_icon p_icon">
+          <i class="fa-solid fa-heart icon_wl_c"></i>
+      </div>
+      
+
+    </div>
+    
+
+    
+  </div>
+
+  {% comment %} for products not on sale {% endcomment %}
+  {% else %}
+    <div class="card">
+        <img src="{{product.image.url}}" class="card-img-Topper" alt="abaya">
+        <div class="card-body">
+          <h5 class="card-title">{{product.product_name}}</h5>
+          <p class="card-text">Rs. {{product.price}}</p>
+        </div>
+
+        <div class="p_card_icon">
+          <div class="p_cart_icon p_icon">
+            <i class="fa-solid fa-cart-shopping icon_wl_c"></i>
+          </div>
+          <div class="p_wl_icon p_icon">
+              <i class="fa-solid fa-heart icon_wl_c"></i>
+          </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endblock "content" %}
+
+ -->

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block "content" %}
+{% if user.is_authenticated %}
+<!-- <div class="jumbotron mt-4 my-3" style="margin-left:50px; margin-right:50px;">
+    <h1 class="display-6">Welcome, {{ user.first_name }}!</h1>
+    <!-- <p class="lead">Here you can update your profile information.</p> -->
+</div> -->
+
+{% comment %} <button type="submit" class="btn btn-primary">Logout</button> {% endcomment %}
+
+<div class="container my-3">
+    <h2>Edit Profile</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group my-3">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+        </div>
+        <div class="form-group my-3">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+        </div>
+        <div class="form-group my-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <div class="form-group my-3">
+            <label for="password1">New Password</label>
+            <input type="password" class="form-control" id="password1" name="password1">
+        </div>
+        <div class="form-group my-3">
+            <label for="password2">Confirm New Password</label>
+            <input type="password" class="form-control" id="password2" name="password2">
+        </div>
+        <button type="submit" class="btn btn-primary my-3" style="background-color: #fb85a1; border-color: #fb85a1; display: flex; margin-left: 2.7rem;">Update Profile</button>
+    </form>
+</div>
+{% endif %}
+{% endblock "content" %}
