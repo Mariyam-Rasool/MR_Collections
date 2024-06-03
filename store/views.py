@@ -21,16 +21,18 @@ import random
 from django.shortcuts import render, get_object_or_404
 # from django.core import paginator
 from django.core.paginator import Paginator
-from .models import Product, Category
+from .models import Product, Category,BasePoster
 
 def base(request):
-    return render(request, 'base.html')
+    posters = list(BasePoster.objects.all())
+
+    return render(request, 'base.html',{'posters':posters})
 
 def home(request):
     all_products = list(Product.objects.all())
     random.shuffle(all_products)
     
-    paginator = Paginator(all_products, 20)  # Show 12 products per page
+    paginator = Paginator(all_products, 20)  # Show 20 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -41,7 +43,7 @@ def products_by_category(request, slug):
     products = list(Product.objects.filter(category=category))
     random.shuffle(products)
     
-    paginator = Paginator(products, 20)  # Show 12 products per page
+    paginator = Paginator(products, 20)  # Show 20 products per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

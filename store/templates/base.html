@@ -135,43 +135,17 @@
     <!-- Main 4 boxes -->
     <div class="container">
       <div class="row">
-        <div class="boxes">
-          <img
-            src="{% static 'images/medium-shot-women-holding-flowers.jpg' %}"
-            class="card-img-top"
-            alt="..."
-          />
-          <a href="#" class="card-link">See more</a>
-        </div>
-        <div class="boxes">
-          <img
-            src="{% static 'images/medium-shot-women-holding-flowers.jpg' %}"
-            class="card-img-top"
-            alt="..."
-          />
-          <a href="#" class="card-link">See more</a>
-        </div>
+          {% for poster in posters %}
+              <div class="col-md-6 boxes">
+                  <img src="{{ poster.image.url }}" class="card-img-top" alt="{{ poster.name }}">
+                  <a href="{% url 'products_by_category' slug=poster.name|slugify %}" class="card-link">See more</a>
+              </div>
+              {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                  </div><div class="row">
+              {% endif %}
+          {% endfor %}
       </div>
-      <div class="row">
-        <div class="boxes">
-          <img
-            src="{% static 'images/medium-shot-women-holding-flowers.jpg' %}"
-            class="card-img-top"
-            alt="..."
-          />
-          <a href="#" class="card-link">See more</a>
-        </div>
-        <div class="boxes">
-          <img
-            src="{% static 'images/medium-shot-women-holding-flowers.jpg' %}"
-            class="card-img-top"
-            alt="..."
-          />
-          <a href="#" class="card-link">See more</a>
-        </div>
-      </div>
-    </div>
-
+  </div>
     {% endblock "content"%}
 
     <!-- Footer Code -->

@@ -43,6 +43,13 @@ class ProductDetail(models.Model):
     def __str__(self):
         return f"{self.product.name} - {self.size or 'No Size'} - {self.color or 'No Color'}"
 
+
+class BasePoster(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/base')
+    def __str__(self):
+        return f'{self.name}'
+
 class Customer(models.Model):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)

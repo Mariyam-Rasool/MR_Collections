@@ -74,3 +74,58 @@
   {% endblock "content" %}
 
  -->
+
+
+
+
+ <!-- Base 4 div section -->
+ {% comment %} <div class="boxes">
+  <img
+    src="{{ poster.image.url }}"
+    class="card-img-top"
+    alt="{% url 'products_by_category' slug='modest_attire' %}"
+  />
+  <a href="{% url 'products_by_category' slug='modest_attire' %}" class="card-link">See more</a>
+</div>
+</div>
+<div class="row">
+<div class="boxes">
+  <img
+    src="{{ poster.image.url }}"
+    class="card-img-top"
+    alt="poster"
+  />
+  <a href="{% url 'products_by_category' slug='hijab' %}" class="card-link">See more</a>
+</div>
+<div class="boxes">
+  <img
+    src="{{ poster.image.url }}"
+    class="card-img-top"
+    alt="poster"
+  />
+  <a href="{% url 'products_by_category' slug='accessory' %}" class="card-link">See more</a>
+</div> {% endcomment %}
+
+
+
+
+
+
+
+
+
+{% for poster in posters %}
+<div class="container">
+  <div class="row">
+    <div class="boxes">
+      <img
+        src="{{ poster.image.url }}"
+        class="card-img-top"
+        alt="poster"
+      />
+      <a href="{% url 'products_by_category' slug=poster.name|slugify %}" class="card-link">See more</a>
+    </div>
+
+  </div>
+</div>
+{% endfor %}
