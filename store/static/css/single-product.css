@@ -1,0 +1,156 @@
+/* Custom CSS*/
+.carousel-item img {
+    height: 600px;
+    /* width: 400px; */
+    object-fit: cover;
+}
+.carouse
+{
+    width: 450px;
+}
+/* .heading_p
+{
+    float: left;
+} */
+.btn-outline-secondary {
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+.s_p_div
+{
+    display: flex;
+    /* flex-wrap: nowrap; */
+
+}
+/* .s_p_display {
+    flex-wrap: wrap;
+} */
+.row
+{
+    /* gap: 10rem; */
+}
+.desc_div
+{
+    top: 0%;
+}
+.button1
+{
+
+    background-color:#6c757d;;
+    border-color:  #6c757d;;
+}
+.btn:hover
+{
+    background-color: #fb85a1;
+    border-color: #fb85a1;
+}
+/* Change the background color of the Add to Cart button */
+/* #add-to-cart-button.button1 {
+    background-color: gray;
+    border-color: gray;
+} */
+
+/* Change the background color to pink when the button is clicked */
+#add-to-cart-button.button1:active {
+    background-color: #fb85a1;
+    border-color: #fb85a1;
+}
+.btn-outline-secondary:active
+{
+    
+    background-color: #fb85a1;
+    border-color: #fb85a1;
+} 
+
+@media (min-width: 658px) and (max-width: 1060px) 
+{
+    .s_p_div {
+        flex-direction: column;
+
+    }
+}
+@media (max-width: 658px) 
+{
+    .s_p_div {
+        flex-direction: column;
+
+    }
+    .carousel-item img {
+        height: 600px;
+        /* width: 400px; */
+        object-fit: cover;
+    }
+    /* .carouse
+    {
+        width: 400px;
+    }
+    .desc_div
+    {
+        width: 500px;
+    } */
+}
+@media (max-width: 500px) 
+{
+    .s_p_div {
+        flex-direction: column;
+
+    }
+    
+    .carouse
+    {
+        width: 400px;
+    }
+    .carousel-item img {
+        height: 600px;
+        /* width: 400px; */
+        object-fit: cover;
+    }
+
+}
+@media (max-width: 400px) 
+{
+    .s_p_div {
+        flex-direction: column;
+
+    }
+    
+    .carouse
+    {
+        width: 320px;
+    }
+    .carousel-item img {
+        height: 450px;
+        /* width: 400px; */
+        object-fit: cover;
+    }
+    .desc_div
+    {
+        width: 320px;
+    }
+}
+@media (max-width: 300px) 
+{
+    .s_p_div {
+        flex-direction: column;
+
+    }
+    
+    .carouse
+    {
+        width: 250px;
+    }
+    .carousel-item img {
+        height: 450px;
+        /* width: 400px; */
+        object-fit: cover;
+    }
+    .desc_div
+    {
+        width: 250px;
+    }
+}

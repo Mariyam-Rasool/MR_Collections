@@ -1,53 +1,34 @@
 {% extends "base.html" %}
 {% block "content" %}
-    
+<br>
+<br>
 <div class="w_l_product_container">
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
+    {% if wishlist_items %}
+        {% for item in wishlist_items %}
+        <div class="w_l_item">
+            <div class="w_l_image">
+                <img class="w_l_product_img" src="{{ item.product.image.url }}" alt="product_img">
+                <form method="post" action="{% url 'delete_from_wishlist' item.id %}" class="delete_form">
+                    {% csrf_token %}
+                    <button type="submit" class="delete_button">&times;</button>
+                </form>
+            </div>
+            <div class="desc_div">
+                {% if item.product.on_sale %}
+                <p class="w_l_product_name">{{ item.product.product_name }}</p>
+                <p class="w_l_product_price">Rs. {{ item.product.sale_price }}</p>
+                {% else %}
+                <p class="w_l_product_name">{{ item.product.product_name }}</p>
+                <p class="w_l_product_price">Rs. {{ item.product.price }} Rs</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="no_item">
+        <p class="empty_wishlist">No items in the wishlist <i class="fa-solid fa-cart-shopping"></i></p>
     </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    <div class="w_l_item">
-        <img class="w_l_product_img" src="abaya1.jpg" alt="product_img">
-        <p class="w_l_product_desc">Sage abaya</p>
-        <p class="w_l_product_price">5000 Rs</p>
-    </div>
-    </div>
+    {% endif %}
+</div>
 
-    
 {% endblock "content" %}

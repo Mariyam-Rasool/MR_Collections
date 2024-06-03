@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% load static %} {% block "content" %}
+<style>
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    /* padding: 20px; */
+    background: #fff;
+  }
+  h2,
+  h5 {
+    color: gray;
+    text-align: left;
+  }
+  h2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .section {
+    /* margin: 20px 0; */
+    /* text-align: left; */
+  }
+  p{
+  font-size:small;
+  }
+</style>
+<div class="container">
+  <h2>Shipping and Handling</h2>
+  <div class="section">
+    <h5>Domestic Shipping</h5>
+    <p>
+      We are pleased to offer reliable shipping services across Pakistan. All
+      orders are processed and shipped within 2-3 business days. Delivery times
+      may vary depending on your location:
+    </p>
+    <ul>
+      <li><strong>Major Cities:</strong> 2-3 business days</li>
+      <li><strong>Other Areas:</strong> 4-5 business days</li>
+    </ul>
+    <p>
+      Shipping charges are calculated at checkout based on the weight and
+      destination of your order.
+    </p>
+  </div>
+  <div class="section">
+    <h5>International Shipping</h5>
+    <p>
+      Currently, we do not offer international shipping. Please check back in
+      the future for updates on our shipping policies. If you have any further
+      questions or concerns, feel free to reach out to our customer support team
+      for assistance.
+    </p>
+  </div>
+  <div class="section">
+    <h5>Order Tracking</h5>
+    <p>
+      Once your order has been shipped, you will receive a confirmation email
+      with a tracking number. You can use this number to track your order
+      through our shipping partner's website.
+    </p>
+  </div>
+  <div class="section">
+    <h5>Handling Time</h5>
+    <p>
+      We take great care in handling and packaging your order to ensure it
+      arrives in perfect condition. Please allow 2-3 business days for us to
+      process and prepare your order for shipment.
+    </p>
+  </div>
+  <div class="section">
+    <h5>Customs and Duties</h5>
+    <p>
+      All applicable customs and import duties, fees, and taxes are the
+      responsibility of the customer. We are not responsible for any delays
+      caused by customs processes.
+    </p>
+  </div>
+  <div class="section">
+    <h5>Shipping Issues</h5>
+    <p>
+      If you encounter any issues with your shipment, please contact our
+      customer service team at
+      <a style="color: #fb85a1" href="mailto:mrcollections.store@gmail.com">
+        mrcollections.store@gmail.com</a
+      >. We are here to assist you with any concerns or questions you may have.
+    </p>
+  </div>
+  <div class="section">
+    <h5>Returns and Exchanges</h5>
+    <p>
+      Please refer to our <a href="{% url 'returns' %}">Returns Policy</a> page
+      for detailed information on how to return or exchange an item. If you have
+      any further questions regarding our return process, don't hesitate to
+      contact our customer support team for assistance. We're here to help!
+    </p>
+  </div>
+</div>
+{% endblock "content" %}

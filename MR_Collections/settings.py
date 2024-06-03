@@ -59,8 +59,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # or your email provider's SMTP server
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'testdjango57@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'uhtt iozw sfih poxn'  # Your email account password
+EMAIL_HOST_USER = 'mrcollections.store@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'qoqs pkgc zlmj xqlb'  # Your email account password
 
 
 
@@ -129,6 +129,11 @@ STATIC_URL = "static/"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# wishlist se login ke tak ka safar :)
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

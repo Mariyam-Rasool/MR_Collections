@@ -1,0 +1,37 @@
+/* .top_div
+{
+    display: flex;
+}*/
+.btn-primary {
+    bs-btn-color: #fff;
+    bs-btn-bg: #fb85a1;
+    bs-btn-border-color: #fb85a1;
+.custom-btn {
+    background-color: #fb85a1;
+    border-color: #fb85a1;
+}
+
+.custom-btn:hover {
+    background-color: #fb85a1;
+    border-color: #fb85a1;
+}
+
+.top_div .form-control {
+    width: 100%;
+}
+
+.top_div .col-md-6, .top_div .col-md-4, .top_div .col-md-2 {
+    margin-bottom: 0;
+}
+
+/* @media (max-width:500px)
+{
+    .sort_div
+    {
+        display: flex;
+    }
+    .
+    {
+        display: flex;
+    }
+} */

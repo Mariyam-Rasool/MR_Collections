@@ -253,9 +253,9 @@ def signup_view(request):
             messages.error(request, "Username already taken")
             return render(request, 'signup.html')
 
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email already registered")
-            return render(request, 'signup.html')
+        # if User.objects.filter(email=email).exists():
+        #     messages.error(request, "Email already registered")
+        #     return render(request, 'signup.html')
 
         user = User.objects.create_user(
             username=username,

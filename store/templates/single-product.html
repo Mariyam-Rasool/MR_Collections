@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block "content" %}
+<div id="auth-status" data-authenticated="{{ user.is_authenticated }}"></div>
+<div class="container s_p_display py-5">
+
+    <div class=" s_p_div" style="gap:5rem;">
+        <!-- Product Image Carousel -->
+        <div class="col-md-6 carouse">
+            <div id="productCarousel" class="carousel slide" data-bs-interval="false">
+                <div class="carousel-inner">
+                    <!-- Main product image -->
+                    <!-- <div class="carousel-item active ">
+                        <img src="{{ product.image.url }}" class="img-fluid" alt="Product Image">
+                    </div> -->
+                    <!-- Additional product images -->
+                    <!-- {% for detail in product_details %} -->
+                        <!-- {% if detail.images.all %} -->
+                            {% for image in detail.images.all %}
+                            <div class="carousel-item active">
+                                <img src="{{ image.image.url }}" class="img-fluid" alt="Product Detail Image">
+                            </div>
+                            {% endfor %}
+                        <!-- {% endif %} -->
+                       
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- Product Details -->
+        <div class="col-md-6 desc_div">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2 " style="text-align: start;">{{ product.product_name }}</h2>
+            <div>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-2" style="display: flex;">
+                    {{ product.desc }}
+                </p>
+                {% for detail in product_details %}
+                    {% if detail.model_no %}
+                        <p class="text-gray-700 dark:text-gray-300 text-sm font-bold mt-2" style="display: flex;">Model no: {{ detail.model_no }}</p>
+                    {% endif %}
+                    {% if detail.fabric %}
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-2" style="display: flex;">Fabric: {{ detail.fabric }}</p>
+                    {% endif %}
+                    {% if detail.color %}
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-2" style="display: flex;">Color: {{ detail.color }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            <!-- Select Size -->
+            {% if show_size_option %}
+            <div class="mb-4">
+                <span class="font-bold text-gray-700 dark:text-gray-300">Select Size:</span>
+                <div class="mt-2">
+                    <button class="btn btn-outline-secondary me-2 size-option" data-size="XS">XS</button>
+                    <button class="btn btn-outline-secondary me-2 size-option" data-size="S">S</button>
+                    <button class="btn btn-outline-secondary me-2 size-option" data-size="M">M</button>
+                    <button class="btn btn-outline-secondary me-2 size-option" data-size="L">L</button>
+                    <button class="btn btn-outline-secondary me-2 size-option" data-size="XL">XL</button>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Select Quantity -->
+            <div class="mb-4">
+                <span class="font-bold text-gray-700 dark:text-gray-300">Quantity:</span>
+                <div class="mt-2">
+                    <input type="number" id="quantity" class="form-control w-25" value="1" min="1">
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                {% if product.on_sale %}
+                    <strike><p class="card-text">Rs. {{ product.price }}</p></strike>
+                    <p class="card-text">Rs. {{ product.sale_price }}</p>
+                {% else %}
+                    <span class="text-gray-600 dark:text-gray-300">Rs. {{ product.price }}</span>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <button class="btn btn-primary w-50 mb-2 button1" id="add-to-cart-button" data-product-id="{{ product.id }}">Add to Cart</button>
+                <button class="btn btn-outline-secondary w-50 button2" data-product-id="{{ product.id }}">Add to Wishlist</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartButton = document.getElementById('add-to-cart-button');
+        const sizeOptions = document.querySelectorAll('.size-option');
+        // let selectedSize = null;
+        const showSizeOption = {{ show_size_option|lower }};
+
+        if (showSizeOption && sizeOptions.length > 0) {
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    sizeOptions.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedSize = this.getAttribute('data-size');
+                });
+            });
+
+            addToCartButton.addEventListener('click', function (event) {
+                if (!selectedSize) {
+                    alert('Please select a size before adding to cart.');
+                    event.preventDefault();
+                    return;
+                }
+                addToCart(event, selectedSize);
+            });
+        } else {
+            addToCartButton.addEventListener('click', function (event) {
+                addToCart(event);
+            });
+        }
+
+        function addToCart(event, size) {
+            event.preventDefault();
+            const productId = addToCartButton.getAttribute('data-product-id');
+            const quantity = document.getElementById('quantity').value;
+
+            fetch('{% url "add_to_cart" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    size: size,
+                    quantity: quantity,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Item added to cart successfully!');
+                } else {
+                    alert('There was an error adding the item to the cart.');
+                }
+            });
+        }
+    });
+    </script>
+{% endblock "content" %}

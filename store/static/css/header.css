@@ -18,7 +18,21 @@ a:hover
 {
     color: #fb85a1;
 }
+.user_icon {
+    color: inherit; /* Ensure the icon inherits the current color */
+    /* transition: color 0.3s, background-color 0.3s; Smooth transition for color changes */
+}
 
+.user_icon:hover {
+    color: #fb85a1; /* Change the color on hover */
+    background-color: transparent; /* Ensure the background color remains transparent */
+}
+
+/* Additional hover styles for dropdown items */
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Slight darkening effect */
+    color: inherit; 
+}
 .nav_bar
 {
     position: sticky;

@@ -1,27 +1,190 @@
 {% extends "base.html" %}
+{% load static %}
 {% block "content" %}
-<body class="show_cart">
-    <div class="cart_tab">
-        <h1>Shopping Cart</h1>
-        <div class="listcart">
-            <div class="item">
-            <div class="image">
-                <img src="abaya1.jpg" alt="abaya1" />
-            </div>
-            <div class="item_name">NAME</div>
-            <div class="totalprice">Rs/-5000</div>
-            <div class="quantity">
-                    <span class="minus"><</span>
-                    <span>1</span>
-                    <span class="plus">></span>
-            </div>
-            </div>
-      </div>
 
-      <div class="btn">
-            <button class="close">CLOSE</button>
-            <button class="checkout">CheckOut</button>
-      </div>
+<div class="container_div">
+    {% if cart_items %}
+    <div class="shopping-cart">
+        <h2>Shopping Cart</h2>
+        <div class="column-labels">
+            <label class="product-details1">Product</label>
+            <label class="product-size1">Size</label>
+            <label class="product-price1">Price</label>
+            <label class="product-quantity1">Quantity</label>
+            <label class="product-removal1">Remove</label>
+        </div>
+
+        {% for item in cart_items %}
+        <div class="product">
+            <div class="pro_detail">
+                <div class="product-image">
+                    <img src="{{ item.product.image.url }}">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">{{ item.product.product_name }}</div>
+                </div>
+            </div>
+            <div class="product-size">
+                <span class="size-word">Size: </span>
+                <div class="size">{{ item.size }}</div>
+            </div>
+
+            <div class="product-price">
+                <span class="price-word">Price: </span>
+                {% if item.product.on_sale %}
+                <div class="price_div" style="display:flex; flex-direction: column;">
+                    <strike><div class="price">Rs. {{ item.product.price }}</div></strike>
+                    <div class="price">Rs. {{ item.product.sale_price }}</div>
+                </div>
+                {% else %}
+                <div class="price">Rs.{{ item.product.price }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-4 product-quantity">
+                <div class="mt-2">
+                    <input type="number" class="form-control w-25 quantity" value="{{ item.quantity }}" min="1" data-product-id="{{ item.product.id }}" data-size="{{ item.size }}">
+                </div>
+            </div>
+            
+            <!-- <div class="mb-4 product-quantity">
+                <div class="mt-2">
+                    <input type="number" class="form-control w-25 quantity" value="{{ item.quantity }}" min="1">
+                </div>
+            </div> -->
+            <div class="product-removal" style="background-color: white;">
+                <form method="post" action="{% url 'remove_from_cart' %}" class="remove-from-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                    <input type="hidden" name="size" value="{{ item.size }}">
+                    <button type="submit" class="remove-btn" style="border: none; background-color: white;" data-product-id="{{ item.product.id }}" data-size="{{ item.size }}">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
     </div>
-</body>
+
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <div class="totals">
+            <div class="totals-item">
+                <label>Subtotal</label>
+                <div class="totals-value" id="cart-subtotal">Rs. {{ cart_subtotal }}</div>
+            </div>
+            <div class="totals-item">
+                <label>Tax (5%)</label>
+                <div class="totals-value" id="cart-tax">Rs. {{ cart_tax }}</div>
+            </div>
+            <div class="totals-item">
+                <label>Shipping</label>
+                <div class="totals-value" id="cart-shipping">Rs. {{ cart_shipping }}</div>
+            </div>
+            <div class="totals-item totals-item-total">
+                <label>Grand Total</label>
+                <div class="totals-value" id="cart-total">Rs. {{ cart_total }}</div>
+            </div>
+            <a href="{% url 'checkout' %}"><button class="checkout">Checkout</button></a>
+        </div>
+    </div>
+    {% else %}
+    <div class="no_item_in_cart">
+        <p class="empty_cart">Cart is empty <i class="fa-solid fa-cart-shopping"></i></p>
+    </div>
+{% endif %}
+</div>
+
+<script>
+  // Listen for change events on quantity inputs
+//   document.querySelectorAll('.quantity').forEach(input => {
+//         input.addEventListener('change', function(event) {
+//             const productId = this.dataset.productId; // Get the product ID from the data-attribute
+//             const quantity = parseInt(this.value); // Get the new quantity value
+
+//             // Send AJAX request to update the quantity
+//             fetch('/update-cart/', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-CSRFToken': getCookie('csrftoken'),
+//                 },
+//                 body: JSON.stringify({
+//                     product_id: productId,
+//                     quantity: quantity,
+//                 }),
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data.success) {
+//                     // Update the order summary
+    
+//                     updateTotals(data);
+//                 } else {
+//                     // If the response indicates failure, show the error message
+//                     alert(data.error || 'Error updating item quantity in cart.');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('There was a problem with the fetch operation:', error);
+//                 alert('Error updating item quantity in cart.');
+//             });
+//         });
+//     });
+
+//     function updateTotals(data) {
+//         // Update order summary with new totals
+//         document.getElementById('cart-subtotal').textContent = `Rs. ${data.cart_subtotal.toFixed(2)}`;
+//         document.getElementById('cart-tax').textContent = `Rs. ${data.cart_tax.toFixed(2)}`;
+//         document.getElementById('cart-shipping').textContent = `Rs. ${data.cart_shipping.toFixed(2)}`;
+//         document.getElementById('cart-total').textContent = `Rs. ${data.cart_total.toFixed(2)}`;
+//     }
+
+
+    // Delete the item from cart
+    document.querySelectorAll('.remove-from-cart-form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/remove-from-cart/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the product from the DOM immediately
+                    const productId = formData.get('product_id');
+                    const size = formData.get('size');
+                    const productElement = document.querySelector(`.product[data-product-id="${productId}"][data-size="${size}"]`);
+                    if (productElement) {
+                        productElement.parentNode.removeChild(productElement);
+                    }
+                    location.reload();
+                    // Update the order summary immediately
+                    updateTotals(data);
+                } else {
+                    // If the response indicates failure, show the error message
+                    alert(data.error || 'Error removing item from cart.');
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                alert('Error removing item from cart.');
+            });
+        });
+    });
+
+    function updateTotals(data) {
+        document.getElementById('cart-subtotal').textContent = `Rs. ${data.cart_subtotal.toFixed(2)}`;
+        document.getElementById('cart-tax').textContent = `Rs. ${data.cart_tax.toFixed(2)}`;
+        document.getElementById('cart-shipping').textContent = `Rs. ${data.cart_shipping.toFixed(2)}`;
+        document.getElementById('cart-total').textContent = `Rs. ${data.cart_total.toFixed(2)}`;
+    }
+
+    
+</script>
 {% endblock "content" %}
